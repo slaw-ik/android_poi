@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -15,9 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,6 +23,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +31,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomePage extends Activity {
+public class HomePage extends ActionBarActivity {
 	
 	TextView view;
 	MarkerDataSource data;
@@ -46,6 +43,8 @@ public class HomePage extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.home_page);
+	    android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+	    actionBar.hide();
 	
         Button btnMap = (Button) findViewById(R.id.btnMap);
         Button btnGetJSON = (Button) findViewById(R.id.btnGetJSON);
