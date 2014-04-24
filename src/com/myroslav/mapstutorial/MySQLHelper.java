@@ -2,7 +2,6 @@ package com.myroslav.mapstutorial;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MySQLHelper extends SQLiteOpenHelper{
@@ -13,6 +12,8 @@ public class MySQLHelper extends SQLiteOpenHelper{
 	public static final String SNIPPET = "loc_snippet";
 	public static final String FULL_DESC = "loc_full_desc";
 	public static final String POSITION = "loc_position";
+	public static final String RATING = "rating";
+	public static final String RESETABLE_RATING = "resetable_rating";
 	
 	public static final int D_VERSION = 1;
 	
@@ -22,7 +23,10 @@ public class MySQLHelper extends SQLiteOpenHelper{
 			+ ID_COL + " integer primary key autoincrement, "
 			+ SNIPPET + " text, "
 			+ FULL_DESC + " text, "
-			+ POSITION + " text);"
+			+ POSITION + " text,"			
+			+ RATING + " integer DEFAULT 0, "
+			+ RESETABLE_RATING + " integer DEFAULT 0,"
+			+ " UNIQUE("+ POSITION + "));"
 			;
 
 	public MySQLHelper(Context context) {

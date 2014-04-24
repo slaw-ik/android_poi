@@ -1,13 +1,12 @@
 package com.myroslav.mapstutorial;
 
-import android.text.InputFilter.LengthFilter;
-import dalvik.system.DexFile;
-
 public class MyMarkerObj {
 	private long id;
 	private String snippet;
 	private String position;
 	private String full_desc;
+	private int rating;
+	private int resetable_rating;
 	
 	public MyMarkerObj() {
 		
@@ -56,4 +55,19 @@ public class MyMarkerObj {
 		this.position = position;
 	}
 
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	
+	public int getResetableRating() {
+		return resetable_rating;
+	}
+
+	public void setResetableRating(int resetable_rating) {
+		this.resetable_rating = resetable_rating;
+	}
 }

@@ -4,32 +4,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Map" />
+        android:layout_marginBottom="@dimen/my_padding"
+        android:layout_marginTop="@dimen/my_padding" >
 
-      <Button
-        android:id="@+id/btnGetJSON"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/my_padding"
+            android:text="@string/total_points_in_database" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Get JSON" />
+        android:orientation="vertical" >
 
-      <TextView
-          android:id="@+id/textView1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="TextView" />
+        <Button
+            android:id="@+id/btnMap"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/map" />
+    </LinearLayout>
 
-      <ProgressBar
-          android:id="@+id/progressBar1"
-          style="?android:attr/progressBarStyleLarge"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center|center_vertical"
-          android:visibility="invisible" />
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical"
+        android:visibility="invisible" />
 
 </LinearLayout>

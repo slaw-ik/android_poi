@@ -34,19 +34,26 @@ public class MapActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		initMap();
-		
-//		addTwitterToMap();
-		checkForGPSActive();		
+
+		// addTwitterToMap();
+		checkForGPSActive();
 		displayMarkersFromDB();
-		
-		
-		
-		googlemap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+		googlemap
+				.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+					@Override
+					public void onInfoWindowClick(Marker marker) {
+						showFullDescription(marker);
+						updateMarkersRating(marker, 2);
+					}
+				});
+		googlemap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 			
 			@Override
-			public void onInfoWindowClick(Marker marker) {
-//				Toast.makeText(getBaseContext(), "Some Additional Info", Toast.LENGTH_LONG).show();
-				showFullDescription(marker);
+			public boolean onMarkerClick(Marker marker) {
+				updateMarkersRating(marker, 1);
+				return false;
 			}
 		});
 
@@ -55,22 +62,22 @@ public class MapActivity extends FragmentActivity {
 	protected void showFullDescription(Marker marker) {
 		data = new MarkerDataSource(context);
 		data.open();
-		
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		String position = marker.getTitle();
 		String full_desc = data.getMarkerByPositon(position).getFullDesc();
-		
-		builder.setTitle("Info");		
+
+		builder.setTitle("Info");
 		builder.setMessage(full_desc);
 		builder.setCancelable(false);
-		builder.setPositiveButton("Show more Info",
-				new DialogInterface.OnClickListener() {
+//		builder.setPositiveButton("Show more Info",
+//				new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-
-					}
-				});
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//
+//					}
+//				});
 		builder.setNegativeButton("Close",
 				new DialogInterface.OnClickListener() {
 
@@ -84,38 +91,53 @@ public class MapActivity extends FragmentActivity {
 		alert.show();
 		data.close();
 	}
+	
+	private void updateMarkersRating(Marker marker, int i) {
+		data = new MarkerDataSource(context);
+		data.open();		
+		String position = marker.getTitle();
+		MyMarkerObj my_marker = data.getMarkerByPositon(position);
+		data.increaseRating(my_marker, i);
+		data.close();		
+	}
 
 	private void checkForGPSActive() {
 		LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 		String provider = lm.getBestProvider(new Criteria(), true);
 		List<String> priversList = lm.getProviders(new Criteria(), true);
-					
-		if (!priversList.contains("gps")){
+
+		if (!priversList.contains("gps")) {
 			locationListener.onProviderDisabled(provider);
-		};		
+		}
+		;
 	}
 
 	private void displayMarkersFromDB() {
 		data = new MarkerDataSource(context);
 		data.open();
-		
-//		data.addMarker(new MyMarkerObj("ED office", "Essential Data s.r.o.", "48.147459 17.117777"));
-//		data.addMarker(new MyMarkerObj("Runa", "Polonyna Runa", "48.804376 22.812252"));
-//		data.addMarker(new MyMarkerObj("Robinzon", "Transcarpathia", "48.760333 23.361685"));	
-				
+
+		// data.addMarker(new MyMarkerObj("ED office", "Essential Data s.r.o.",
+		// "48.147459 17.117777"));
+		// data.addMarker(new MyMarkerObj("Runa", "Polonyna Runa",
+		// "48.804376 22.812252"));
+		// data.addMarker(new MyMarkerObj("Robinzon", "Transcarpathia",
+		// "48.760333 23.361685"));
+
 		List<MyMarkerObj> m = data.getMyMarkers();
-		
-		for (int i = 0; i < m.size(); i++){
+
+		for (int i = 0; i < m.size(); i++) {
 			String[] slatlng = m.get(i).getPosition().split(" ");
-			LatLng lat = new LatLng(Double.valueOf(slatlng[0]), Double.valueOf(slatlng[1])); 
+			LatLng lat = new LatLng(Double.valueOf(slatlng[0]),
+					Double.valueOf(slatlng[1]));
 			googlemap.addMarker(new MarkerOptions()
-			.title(m.get(i).getPosition())			
-			.snippet(m.get(i).getSnippet())
-			.position(lat));
-		}		
+					.title(m.get(i).getPosition())
+					.snippet("Rating: " + m.get(i).getRating() + " " + m.get(i).getSnippet()).position(lat));
+		}
 		data.close();
-		
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(new LatLngBounds(new LatLng(47.96, 22.16), new LatLng(49.03, 23.90)),300,300, 10);
+
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(
+				new LatLngBounds(new LatLng(47.96, 22.16), new LatLng(49.03,
+						23.90)), 300, 300, 10);
 		googlemap.animateCamera(cameraUpdate);
 	}
 
