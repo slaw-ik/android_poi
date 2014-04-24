@@ -224,6 +224,7 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f02001e;
         public static final int ic_plusone_standard_off_client=0x7f02001f;
         public static final int ic_plusone_tall_off_client=0x7f020020;
+        public static final int map_icon=0x7f020021;
     }
     public static final class id {
         public static final int action_settings=0x7f05000d;
@@ -255,9 +256,9 @@ containing a value of this type.
         public static final int main=0x7f0a0000;
     }
     public static final class string {
-        public static final int action_search=0x7f06001c;
-        public static final int action_settings=0x7f06001b;
-        public static final int app_name=0x7f06001a;
+        public static final int action_search=0x7f06001d;
+        public static final int action_settings=0x7f06001c;
+        public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -352,11 +353,14 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int hello_world=0x7f06001d;
-        public static final int map=0x7f06001f;
-        public static final int send_data=0x7f060021;
-        public static final int total_points_in_database=0x7f06001e;
-        public static final int update_data=0x7f060020;
+        public static final int hello_world=0x7f06001e;
+        /**  Location client code resources (prefix with location_client) 
+         */
+        public static final int location_client_powered_by_google=0x7f06001a;
+        public static final int map=0x7f060020;
+        public static final int send_data=0x7f060022;
+        public static final int total_points_in_database=0x7f06001f;
+        public static final int update_data=0x7f060021;
     }
     public static final class style {
         /** 

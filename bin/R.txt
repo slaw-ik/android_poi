@@ -63,6 +63,7 @@ int drawable ic_plusone_medium_off_client 0x7f02001d
 int drawable ic_plusone_small_off_client 0x7f02001e
 int drawable ic_plusone_standard_off_client 0x7f02001f
 int drawable ic_plusone_tall_off_client 0x7f020020
+int drawable map_icon 0x7f020021
 int id action_settings 0x7f05000d
 int id btnMap 0x7f05000b
 int id editsnppet 0x7f050008
@@ -84,9 +85,9 @@ int layout activity_main 0x7f030000
 int layout alertlayout 0x7f030001
 int layout home_page 0x7f030002
 int menu main 0x7f0a0000
-int string action_search 0x7f06001c
-int string action_settings 0x7f06001b
-int string app_name 0x7f06001a
+int string action_search 0x7f06001d
+int string action_settings 0x7f06001c
+int string app_name 0x7f06001b
 int string auth_client_needs_enabling_title 0x7f060015
 int string auth_client_needs_installation_title 0x7f060016
 int string auth_client_needs_update_title 0x7f060017
@@ -113,11 +114,12 @@ int string common_google_play_services_update_text 0x7f060008
 int string common_google_play_services_update_title 0x7f060007
 int string common_signin_button_text 0x7f060012
 int string common_signin_button_text_long 0x7f060013
-int string hello_world 0x7f06001d
-int string map 0x7f06001f
-int string send_data 0x7f060021
-int string total_points_in_database 0x7f06001e
-int string update_data 0x7f060020
+int string hello_world 0x7f06001e
+int string location_client_powered_by_google 0x7f06001a
+int string map 0x7f060020
+int string send_data 0x7f060022
+int string total_points_in_database 0x7f06001f
+int string update_data 0x7f060021
 int style AppBaseTheme 0x7f090000
 int style AppTheme 0x7f090001
 int[] styleable AdsAttrs { 0x7f010000, 0x7f010001, 0x7f010002 }
