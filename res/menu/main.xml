@@ -11,11 +11,7 @@
                 android:id="@+id/mn_update_data"
                 android:icon="@drawable/ic_action_download"
                 android:showAsAction="ifRoom"
-                android:title="@string/update_data"/>
-            <item
-                android:id="@+id/mn_send_data"                
-                android:showAsAction="ifRoom"
-                android:title="@string/send_data"/>
+                android:title="@string/update_data"/>            
         </menu>
     </item>
 

@@ -71,7 +71,6 @@ int id edittitle 0x7f050007
 int id hybrid 0x7f050004
 int id manlo 0x7f050006
 int id map 0x7f050005
-int id mn_send_data 0x7f05000f
 int id mn_update_data 0x7f05000e
 int id none 0x7f050000
 int id normal 0x7f050001

@@ -234,7 +234,6 @@ containing a value of this type.
         public static final int hybrid=0x7f050004;
         public static final int manlo=0x7f050006;
         public static final int map=0x7f050005;
-        public static final int mn_send_data=0x7f05000f;
         public static final int mn_update_data=0x7f05000e;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;

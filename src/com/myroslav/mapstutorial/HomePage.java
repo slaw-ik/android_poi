@@ -9,7 +9,11 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +27,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -78,44 +83,77 @@ public class HomePage extends Activity {
 		switch (item.getItemId()) {
 		case R.id.mn_update_data:
 			downloadCoords();
-			return true;
-		case R.id.mn_send_data:
-			sendRatings();
-			return true;
+			return true;		
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
 	private void sendRatings() {
-		Log.d("Send Data", "TESTING");
-		
+
 		data = new MarkerDataSource(context);
 		data.open();
 
-		List<String> m = data.getAllRatings();
+		JSONArray m = data.getAllRatings();
 
-//		int size = m.size();
-//		if (size == 0) {
-//			showDownloadPrompt();
-//		}
-//		;
+		if (postJSONData(m, "http://192.168.1.223:3000/import_ratings")) {
+			data.clearResetableRatings();
+		} else {
+			Log.d("RESPONSE", "FAIL");
+		}
 
 		data.close();
-		
+
+	}
+
+	private boolean postJSONData(JSONArray m, String url) {
+		JSONArray json = m;
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpContext httpContext = new BasicHttpContext();
+		HttpPost httpPost = new HttpPost(url);
+
+		try {
+
+			StringEntity se = new StringEntity(json.toString());
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+
+			StrictMode.setThreadPolicy(policy);
+
+			httpPost.setEntity(se);
+			httpPost.setHeader("Accept", "application/json");
+			httpPost.setHeader("Content-type", "application/json");
+
+			HttpResponse response = httpClient.execute(httpPost, httpContext);
+
+			// HttpEntity entity = response.getEntity();
+			// String jsonString = EntityUtils.toString(entity); //if response
+			// in JSON format
+
+			if (response.getStatusLine().getStatusCode() == 200) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	protected void downloadCoords() {
 		if (isConnected()) {
+			sendRatings();
+			
 			pb.setVisibility(View.VISIBLE);
 			new HttpAsyncTask()
-					.execute("http://poi.herokuapp.com/pointers.json");
+					.execute("http://192.168.1.223:3000/pointers.json?current_count="+Integer.toString(getDBCount()));
 		} else {
 			Toast.makeText(getBaseContext(),
 					"You are NOT conncted to the Internet!", Toast.LENGTH_LONG)
 					.show();
 		}
-
 	}
 
 	private void checkDBCount() {
@@ -161,15 +199,18 @@ public class HomePage extends Activity {
 	}
 
 	private void showDBCount() {
+		view.setText(Integer.toString(getDBCount()));
+	}
+
+	private int getDBCount() {
 		data = new MarkerDataSource(context);
 		data.open();
 
 		List<MyMarkerObj> m = data.getMyMarkers();
 
-		int size = m.size();
-		view.setText(Integer.toString(size));
-
 		data.close();
+
+		return m.size();
 	}
 
 	public static String GET(String url) {
@@ -251,12 +292,13 @@ public class HomePage extends Activity {
 					data.addMarker(new MyMarkerObj(full_desc, lat_lng));
 				}
 				data.close();
-				Toast.makeText(getBaseContext(), "All data succesfully updated!", Toast.LENGTH_LONG)
-				.show();
+				Toast.makeText(getBaseContext(),
+						"All data succesfully updated!", Toast.LENGTH_LONG)
+						.show();
 			} catch (JSONException e) {
 				e.printStackTrace();
-				Toast.makeText(getBaseContext(), "Data updating Error!", Toast.LENGTH_LONG)
-				.show();
+				Toast.makeText(getBaseContext(), "Data updating Error!",
+						Toast.LENGTH_LONG).show();
 			}
 
 			showDBCount();
