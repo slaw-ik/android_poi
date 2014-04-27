@@ -148,7 +148,7 @@ public class HomePage extends Activity {
 			
 			pb.setVisibility(View.VISIBLE);
 			new HttpAsyncTask()
-					.execute("http://192.168.1.223:3000/pointers.json?current_count="+Integer.toString(getDBCount()));
+					.execute("http://192.168.1.223:3000/pointers.json?current_count="+Integer.toString(getDBCount("")));
 		} else {
 			Toast.makeText(getBaseContext(),
 					"You are NOT conncted to the Internet!", Toast.LENGTH_LONG)
@@ -160,7 +160,7 @@ public class HomePage extends Activity {
 		data = new MarkerDataSource(context);
 		data.open();
 
-		List<MyMarkerObj> m = data.getMyMarkers();
+		List<MyMarkerObj> m = data.getMyMarkers("");
 
 		int size = m.size();
 		if (size == 0) {
@@ -199,14 +199,14 @@ public class HomePage extends Activity {
 	}
 
 	private void showDBCount() {
-		view.setText(Integer.toString(getDBCount()));
+		view.setText(Integer.toString(getDBCount("")));
 	}
 
-	private int getDBCount() {
+	private int getDBCount(String text) {
 		data = new MarkerDataSource(context);
 		data.open();
 
-		List<MyMarkerObj> m = data.getMyMarkers();
+		List<MyMarkerObj> m = data.getMyMarkers(text);
 
 		data.close();
 

@@ -52,10 +52,11 @@ public class MarkerDataSource {
 		db.update(MySQLHelper.TABLE_NAME, v, where, null);
 	}
 
-	public List<MyMarkerObj> getMyMarkers() {
+	public List<MyMarkerObj> getMyMarkers(String text) {
 		List<MyMarkerObj> markers = new ArrayList<MyMarkerObj>();
 
-		String queryString = "SELECT * FROM " + MySQLHelper.TABLE_NAME;
+		String queryString = "SELECT * FROM " + MySQLHelper.TABLE_NAME + 
+				" WHERE " + MySQLHelper.FULL_DESC + " LIKE '%" + text + "%'";
 
 		Log.d("SQL", queryString);
 

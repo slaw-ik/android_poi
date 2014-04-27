@@ -227,6 +227,7 @@ containing a value of this type.
         public static final int map_icon=0x7f020021;
     }
     public static final class id {
+        public static final int action_search=0x7f050010;
         public static final int action_settings=0x7f05000d;
         public static final int btnMap=0x7f05000b;
         public static final int editsnppet=0x7f050008;
@@ -234,7 +235,9 @@ containing a value of this type.
         public static final int hybrid=0x7f050004;
         public static final int manlo=0x7f050006;
         public static final int map=0x7f050005;
+        public static final int mn_refresh_data=0x7f050011;
         public static final int mn_update_data=0x7f05000e;
+        public static final int mn_update_map=0x7f05000f;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int progressBar1=0x7f05000c;
@@ -253,6 +256,8 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
+        public static final int map=0x7f0a0001;
+        public static final int search=0x7f0a0002;
     }
     public static final class string {
         public static final int action_search=0x7f06001d;
