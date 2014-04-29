@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="_results_which_contains_">результатів по запиту \'</string>
+    <string name="action_search">Пошук</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="all_data_updated_">"Всі дані успішно оновлені! "</string>
+    <string name="cancel">Відміна</string>
+    <string name="connection_error">Ви не підключені до інтернету</string>
+    <string name="data_updating_error_">Помилка оновлення даних!</string>
+    <string name="download_coordinates">Отримати координати</string>
+    <string name="empty_database">База даних з координатами точок порожня. Ми рекомендуємо під\'єднатись до інтернету та скачтати координати точок.</string>
+    <string name="empty_database_">База даних порожня!</string>
+    <string name="enable_gps">Ввімкнути GPS</string>
+    <string name="found_">Знайдено</string>
+    <string name="gps_is_disabled">GPS не ввімкнений</string>
+    <string name="info">Інформація</string>
+    <string name="leave_gps_off">Залишити GPS вимкнутим</string>
+    <string name="map">Мапа</string>
+    <string name="refresh">Скинути</string>
+    <string name="search">Пошук</string>
+    <string name="send_data">Вдіслати дані</string>
+    <string name="total_points_in_database">"Всього точок в базі даних: "</string>
+    <string name="update_data">Поновити дані</string>
+
+</resources>

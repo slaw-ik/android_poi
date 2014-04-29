@@ -18,6 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,6 +28,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -38,6 +41,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+@SuppressLint("NewApi")
 public class HomePage extends Activity {
 
 	TextView view;
@@ -83,7 +88,7 @@ public class HomePage extends Activity {
 		switch (item.getItemId()) {
 		case R.id.mn_update_data:
 			downloadCoords();
-			return true;		
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -96,7 +101,7 @@ public class HomePage extends Activity {
 
 		JSONArray m = data.getAllRatings();
 
-		if (postJSONData(m, "http://192.168.1.223:3000/import_ratings")) {
+		if (postJSONData(m, "http://poi.herokuapp.com/import_ratings")) {
 			data.clearResetableRatings();
 		} else {
 			Log.d("RESPONSE", "FAIL");
@@ -106,6 +111,8 @@ public class HomePage extends Activity {
 
 	}
 
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+	@SuppressLint("NewApi")
 	private boolean postJSONData(JSONArray m, String url) {
 		JSONArray json = m;
 		HttpClient httpClient = new DefaultHttpClient();
@@ -145,13 +152,14 @@ public class HomePage extends Activity {
 	protected void downloadCoords() {
 		if (isConnected()) {
 			sendRatings();
-			
+
 			pb.setVisibility(View.VISIBLE);
 			new HttpAsyncTask()
-					.execute("http://192.168.1.223:3000/pointers.json?current_count="+Integer.toString(getDBCount("")));
+					.execute("http://poi.herokuapp.com/pointers.json?current_count="
+							+ Integer.toString(getDBCount("")));
 		} else {
 			Toast.makeText(getBaseContext(),
-					"You are NOT conncted to the Internet!", Toast.LENGTH_LONG)
+					R.string.connection_error, Toast.LENGTH_LONG)
 					.show();
 		}
 	}
@@ -173,10 +181,10 @@ public class HomePage extends Activity {
 
 	private void showDownloadPrompt() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setTitle("Empty database!");
-		builder.setMessage("Database with points is empty. We recommend connect to the internet and download all coordinates.");
+		builder.setTitle(R.string.empty_database_);
+		builder.setMessage(R.string.empty_database);
 		builder.setCancelable(false);
-		builder.setPositiveButton("Download coordinates",
+		builder.setPositiveButton(R.string.download_coordinates,
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -184,7 +192,7 @@ public class HomePage extends Activity {
 						downloadCoords();
 					}
 				});
-		builder.setNegativeButton("Cancel",
+		builder.setNegativeButton(R.string.cancel,
 				new DialogInterface.OnClickListener() {
 
 					@Override
@@ -272,8 +280,8 @@ public class HomePage extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			pb.setVisibility(View.INVISIBLE);
-			Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG)
-					.show();
+//			Toast.makeText(getBaseContext(), R.string.received_, Toast.LENGTH_LONG)
+//					.show();
 
 			JSONArray jsonArray;
 			try {
@@ -293,11 +301,11 @@ public class HomePage extends Activity {
 				}
 				data.close();
 				Toast.makeText(getBaseContext(),
-						"All data succesfully updated!", Toast.LENGTH_LONG)
+						R.string.all_data_updated_, Toast.LENGTH_LONG)
 						.show();
 			} catch (JSONException e) {
 				e.printStackTrace();
-				Toast.makeText(getBaseContext(), "Data updating Error!",
+				Toast.makeText(getBaseContext(), R.string.data_updating_error_,
 						Toast.LENGTH_LONG).show();
 			}
 

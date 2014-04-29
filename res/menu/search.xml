@@ -6,11 +6,11 @@
         android:actionViewClass="android.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
         android:showAsAction="collapseActionView|ifRoom"
-        android:title="Search"/>
+        android:title="@string/search"/>
     <item
         android:id="@+id/mn_refresh_data"
         android:icon="@drawable/ic_action_refresh"
         android:showAsAction="always"
-        android:title="Refresh"/>
+        android:title="@string/refresh"/>
 
 </menu>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Places of Transcarpathia</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_search">Поиск</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="total_points_in_database">"Всего точек в базе данных: "</string>
+    <string name="map">Карта</string>
+    <string name="update_data">Обновить данные</string>
+    <string name="send_data">Отправить данные</string>
+    <string name="search">Поиск</string>
+    <string name="refresh">Сброс</string>
+    <string name="connection_error">Вы не подключены к интернету!</string>
+    <string name="empty_database_">Пустая база данных!</string>
+    <string name="empty_database">База данных с координатами точек пуста. Мы настроятельно рекомендуем подключится к интернету и скачть координаты всех точек.</string>
+    <string name="download_coordinates">Скачать координаты</string>
+    <string name="cancel">Отмена</string>
+    <string name="received_">Received!</string>
+    <string name="all_data_updated_">Все данные успешно обновлены!</string>
+    <string name="data_updating_error_">Ошибка обновления данных!</string>
+    <string name="found_">"Найдено "</string>
+    <string name="_results_which_contains_">" результатов по запросу '"</string>
+    <string name="info">Информация</string>
+    <string name="gps_is_disabled">GPS не включен</string>
+    <string name="enable_gps">Включить GPS</string>
+    <string name="leave_gps_off">Оставить GPS выключенным</string>   
+
+</resources>

@@ -2,28 +2,24 @@ package com.myroslav.mapstutorial;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItemCompat;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -35,7 +31,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapActivity extends FragmentActivity implements OnQueryTextListener{
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+@SuppressLint("NewApi")
+public class MapActivity extends FragmentActivity implements
+		OnQueryTextListener {
 
 	Context context = this;
 	private GoogleMap googlemap;
@@ -45,7 +44,7 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.map_activity);
 		initMap();
 
 		// addTwitterToMap();
@@ -75,26 +74,17 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu items for use in the action bar
-		// MenuInflater inflater = getMenuInflater();
-		// inflater.inflate(R.menu.search, menu);
-		// return super.onCreateOptionsMenu(menu);
-
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.search, menu);
 		searchView = (SearchView) menu.findItem(R.id.action_search)
 				.getActionView();
 		searchView.setOnQueryTextListener(this);
-		
-		return true;
 
+		return true;
 	}
 
+	@SuppressLint("NewApi")
 	public boolean onQueryTextSubmit(String query) {
-//		Toast.makeText(getBaseContext(), "Query = " + query + " : submitted",
-//				Toast.LENGTH_LONG).show();
-//		Log.d("RESPONSE", "Query = " + query + " : submitted");
-		
 		searchView.clearFocus();
 		findMarkerByText(query);
 		return false;
@@ -112,11 +102,12 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 		}
 	}
 
+	@SuppressLint("NewApi")
 	private void findMarkerByText(String text) {
 		googlemap.clear();
 		displayMarkersFromDB(text);
-		String message = "Found " + Integer.toString(getDBCount(text))
-				+ " results, which contains '" + text + "'";
+		String message = getString(R.string.found_) + Integer.toString(getDBCount(text))
+				+ getString(R.string._results_which_contains_) + text + "'";
 		Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
 	}
 
@@ -139,7 +130,7 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 		String position = marker.getTitle();
 		String full_desc = data.getMarkerByPositon(position).getFullDesc();
 
-		builder.setTitle("Info");
+		builder.setTitle(R.string.info);
 		builder.setMessage(full_desc);
 		builder.setCancelable(false);
 		// builder.setPositiveButton("Show more Info",
@@ -203,9 +194,7 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 					Double.valueOf(slatlng[1]));
 			googlemap.addMarker(new MarkerOptions()
 					.title(m.get(i).getPosition())
-					.snippet(
-							"Rating: " + m.get(i).getRating() + " "
-									+ m.get(i).getSnippet()).position(lat));
+					.snippet(m.get(i).getSnippet()).position(lat));
 		}
 		data.close();
 
@@ -247,9 +236,9 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 		public void onProviderDisabled(String provider) {
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			builder.setTitle("GPS is disabled");
+			builder.setTitle(R.string.gps_is_disabled);
 			builder.setCancelable(false);
-			builder.setPositiveButton("Enable GPS",
+			builder.setPositiveButton(R.string.enable_gps,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -260,7 +249,7 @@ public class MapActivity extends FragmentActivity implements OnQueryTextListener
 
 						}
 					});
-			builder.setNegativeButton("Leave GPS off",
+			builder.setNegativeButton(R.string.leave_gps_off,
 					new DialogInterface.OnClickListener() {
 
 						@Override

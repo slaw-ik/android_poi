@@ -9,5 +9,23 @@
     <string name="map">Map</string>
     <string name="update_data">Update data</string>
     <string name="send_data">Send data</string>
+    <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
+    <string name="connection_error">You are NOT conncted to the Internet!</string>
+    <string name="empty_database_">Empty database!</string>
+    <string name="empty_database">Database with points is empty. We recommend connect to the internet and download all coordinates.</string>
+    <string name="download_coordinates">Download coordinates</string>
+    <string name="cancel">Cancel</string>
+    <string name="received_">Received!</string>
+    <string name="all_data_updated_">All data succesfully updated!</string>
+    <string name="data_updating_error_">Data updating Error!</string>
+    <string name="found_">"Found "</string>
+    <string name="_results_which_contains_">" results, which contains '"</string>
+    <string name="info">Info</string>
+    <string name="gps_is_disabled">GPS is disabled</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="leave_gps_off">Leave GPS off</string>
+    
+    
 
 </resources>
